@@ -161,6 +161,12 @@ alias set_env='export PYTHON_EXECUTABLE="$HOME/miniconda3/envs/vizflyt/bin/pytho
 alias init_vizflyt='viz && viz_ws && source_ws && source_ws2 && set_env && cd src'
 ```
 
+Alternatively, we provide a script to run these commands for you. Simply append the following lines to your `~/.bashrc` or `~/.bash_profile`:
+```bash
+export VIZFLYT_PATH="$HOME/VizFlyt/"
+alias init_vizflyt="source $VIZFLYT_PATH/setup_vizflyt_bash.sh"
+```
+
 #### **Step 2: Apply the Changes**
 To make the aliases available immediately, run:
 
