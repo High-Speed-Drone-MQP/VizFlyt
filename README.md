@@ -74,7 +74,8 @@ Ensure you have the following dependencies installed before proceeding:
 - ✅ **[NVIDIA Drivers](https://www.nvidia.com/en-us/drivers/)** (For GPU acceleration)
 - ✅ **[ROS2 Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)** (Required for ROS-based workflows)
 - ✅ **[Miniconda3](https://www.anaconda.com/docs/getting-started/miniconda/install#macos-linux-installation)** (For managing Python environments)
-
+- ✅ **[ROS2 Vicon Reciever Package](https://github.com/OPT4SMART/ros2-vicon-receiver)** (For publishing vicon data to ROS)
+  ➕ *Note: sometimes requires `pip install "empy<4.0" lark` to satisfy build dependencies.*
 ---
 
 ### **1.2 Setting Up the VizFlyt Environment**
@@ -140,7 +141,7 @@ colcon build --symlink-install
 ```
 
 This ensures all necessary dependencies are installed and the workspace is properly compiled.
-
+*It may be helpful to add the vicon_reciever package under 'src' in `vizflyt_ws`*
 ---
 
 ## **3. Making Your Workflow Easier**
