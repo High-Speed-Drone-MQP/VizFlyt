@@ -73,7 +73,6 @@ Ensure you have the following dependencies installed before proceeding:
 - ✅ **[Ubuntu 22.04](https://releases.ubuntu.com/jammy/)**
 - ✅ **[NVIDIA Drivers (CUDA 11.8)](https://www.nvidia.com/en-us/drivers/)** (For GPU acceleration)
 - ✅ **[ROS2 Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)** (Required for ROS-based workflows)
-- ✅ **[Miniconda3](https://www.anaconda.com/docs/getting-started/miniconda/install#macos-linux-installation)** (For managing Python environments)
 - ✅ **[ROS2 Vicon Reciever Package](https://github.com/OPT4SMART/ros2-vicon-receiver)** (For publishing vicon data to ROS)
   ➕ *Note: sometimes requires `pip install "empy<4.0" lark` to satisfy build dependencies.*
 ---
@@ -193,7 +192,7 @@ init_vizflyt
 ```
 
 This command will:
-✔️ Activate the **vizflyt** Conda environment  
+✔️ Activate the **vizflyt** Venv environment  
 ✔️ Navigate to the **VizFlyt workspace**  
 ✔️ Source the required ROS2 setup files  
 ✔️ Set up the necessary **Python environment variables**  
