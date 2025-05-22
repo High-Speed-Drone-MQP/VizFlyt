@@ -71,7 +71,7 @@ This guide will walk you through setting up **VizFlyt**, installing dependencies
 Ensure you have the following dependencies installed before proceeding:
 
 - ✅ **[Ubuntu 22.04](https://releases.ubuntu.com/jammy/)**
-- ✅ **[NVIDIA Drivers](https://www.nvidia.com/en-us/drivers/)** (For GPU acceleration)
+- ✅ **[NVIDIA Drivers (CUDA 11.8)](https://www.nvidia.com/en-us/drivers/)** (For GPU acceleration)
 - ✅ **[ROS2 Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)** (Required for ROS-based workflows)
 - ✅ **[Miniconda3](https://www.anaconda.com/docs/getting-started/miniconda/install#macos-linux-installation)** (For managing Python environments)
 - ✅ **[ROS2 Vicon Reciever Package](https://github.com/OPT4SMART/ros2-vicon-receiver)** (For publishing vicon data to ROS)
@@ -79,18 +79,21 @@ Ensure you have the following dependencies installed before proceeding:
 ---
 
 ### **1.2 Setting Up the VizFlyt Environment**
-#### **Step 1: Create and Activate the Conda Environment**
-Run the following commands to set up a dedicated Conda environment for VizFlyt:
+#### **Step 1: Create and Activate the Venv Environment**
+Run the following commands to set up a dedicated Venv environment for VizFlyt:
 
 ```bash
-# Create a Conda environment with Python 3.10
-conda create --name vizflyt -y python=3.10.14
+# Clone the repository
+git clone https://github.com/pearwpi/VizFlyt.git && cd VizFlyt
+
+# Create a python venv environment with Python 3.10
+python3 -m venv .vizflyt
 
 # Activate the environment
-conda activate vizflyt
+source .vizflyt/bin/activate
 
 # Upgrade pip
-python -m pip install --upgrade pip
+python3 -m pip install --upgrade pip
 ```
 
 ---
@@ -101,11 +104,17 @@ Install **PyTorch** and CUDA dependencies for GPU acceleration:
 ```bash
 pip install torch==2.1.2+cu118 torchvision==0.16.2+cu118 --extra-index-url https://download.pytorch.org/whl/cu118
 
-# Install CUDA Toolkit (Ensure compatibility with PyTorch version)
-conda install -c "nvidia/label/cuda-11.8.0" cuda-toolkit
+pip install --upgrade "numpy<2"
 
 # Install tiny-cuda-nn (for optimized CUDA operations)
 pip install ninja git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
+```
+📌 Note: Ensure that CUDA 11.8 is installed and activated in the current terminal with nvcc --version.
+If it is not, you can run the following (before installing the above).
+```bash
+export CUDA_HOME=/usr/local/cuda-11.8
+export PATH=$CUDA_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 ```
 
 ---
@@ -114,9 +123,6 @@ pip install ninja git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindi
 Clone the VizFlyt repository and install the modified **Nerfstudio** framework:
 
 ```bash
-# Clone the repository
-git clone https://github.com/pearwpi/VizFlyt.git
-
 cd VizFlyt/nerfstudio
 
 # Upgrade pip and setuptools before installing dependencies
@@ -132,16 +138,19 @@ pip install -e .
 Once your environment is set up, build the ROS2 workspace:
 
 ```bash
-pip install --upgrade "numpy<2"
 pip install transforms3d gdown pyquaternion
+
+# edit the vizflyt package setup.cfg to use the venv
+source setup_cfg.sh
 
 cd vizflyt_ws/
 
-colcon build --symlink-install
+colcon build
 ```
 
 This ensures all necessary dependencies are installed and the workspace is properly compiled.
-*It may be helpful to add the vicon_reciever package under 'src' in `vizflyt_ws`*
+
+*If you haven't already, add the vicon_reciever package under 'src' in `vizflyt_ws`*
 ---
 
 ## **3. Making Your Workflow Easier**
@@ -153,19 +162,18 @@ To simplify your workflow, you can define **aliases** in your `~/.bashrc` file f
 Append the following lines to your `~/.bashrc` or `~/.bash_profile`:
 
 ```bash
-alias viz='conda activate vizflyt'
+alias viz='source $HOME/VizFlyt/.vizflyt/bin/activate'
 alias viz_ws='cd $HOME/VizFlyt/vizflyt_ws' 
 alias source_ws='source install/setup.bash'
 alias source_ws2='source install/local_setup.bash'
-alias build_ws='colcon build --symlink-install'
-alias set_env='export PYTHON_EXECUTABLE="$HOME/miniconda3/envs/vizflyt/bin/python" && export PYTHONPATH="$HOME/miniconda3/envs/vizflyt/lib/python3.10/site-packages:$PYTHONPATH" && export PYTHONPATH=$PYTHONPATH:$HOME/VizFlyt/nerfstudio'
+alias build_ws='colcon build'
 alias init_vizflyt='viz && viz_ws && source_ws && source_ws2 && set_env && cd src'
 ```
 
 Alternatively, we provide a script to run these commands for you. Simply append the following lines to your `~/.bashrc` or `~/.bash_profile`:
 ```bash
 export VIZFLYT_PATH="$HOME/VizFlyt/"
-alias init_vizflyt="source $VIZFLYT_PATH/setup_vizflyt_bash.sh"
+alias init_vizflyt="source $VIZFLYT_PATH/setup_vizflyt_venv.sh"
 ```
 
 #### **Step 2: Apply the Changes**
