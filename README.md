@@ -74,7 +74,7 @@ Ensure you have the following dependencies installed before proceeding:
 - ✅ **[NVIDIA Drivers (CUDA 11.8)](https://www.nvidia.com/en-us/drivers/)** (For GPU acceleration)
 - ✅ **[ROS2 Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)** (Required for ROS-based workflows)
 - ✅ **[ROS2 Vicon Reciever Package](https://github.com/OPT4SMART/ros2-vicon-receiver)** (For publishing vicon data to ROS)
-  ➕ *Note: sometimes requires `pip install "empy<4.0" lark` to satisfy build dependencies.*
+  ➕ *Note: sometimes requires `pip install "empy<4.0" catkin_pkg lark` to satisfy build dependencies.*
 ---
 
 ### **1.2 Setting Up the VizFlyt Environment**
@@ -106,7 +106,8 @@ pip install torch==2.1.2+cu118 torchvision==0.16.2+cu118 --extra-index-url https
 pip install --upgrade "numpy<2"
 
 # Install tiny-cuda-nn (for optimized CUDA operations)
-pip install ninja git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
+pip install wheel ninja
+pip install git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
 ```
 📌 Note: Ensure that CUDA 11.8 is installed and activated in the current terminal with nvcc --version.
 If it is not, you can run the following (before installing the above).
@@ -122,7 +123,7 @@ export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 Clone the VizFlyt repository and install the modified **Nerfstudio** framework:
 
 ```bash
-cd VizFlyt/nerfstudio
+cd nerfstudio
 
 # Upgrade pip and setuptools before installing dependencies
 pip install --upgrade pip setuptools
@@ -137,6 +138,8 @@ pip install -e .
 Once your environment is set up, build the ROS2 workspace:
 
 ```bash
+cd ..
+
 pip install transforms3d gdown pyquaternion
 
 # edit the vizflyt package setup.cfg to use the venv
@@ -146,6 +149,7 @@ cd vizflyt_ws/
 
 colcon build
 ```
+📌 *Note: sometimes requires `pip install "empy<4.0" catkin_pkg lark` to satisfy build dependencies.*
 
 This ensures all necessary dependencies are installed and the workspace is properly compiled.
 
