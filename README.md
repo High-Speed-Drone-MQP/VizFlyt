@@ -74,6 +74,7 @@ Ensure you have the following dependencies installed before proceeding:
 - ✅ **[NVIDIA Drivers (CUDA 11.8)](https://www.nvidia.com/en-us/drivers/)** (For GPU acceleration)
 - ✅ **[ROS2 Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)** (Required for ROS-based workflows)
 - ✅ **[ROS2 Vicon Reciever Package](https://github.com/OPT4SMART/ros2-vicon-receiver)** (For publishing vicon data to ROS)
+
   ➕ *Note: sometimes requires `pip install "empy<4.0" catkin_pkg lark` to satisfy build dependencies.*
 ---
 
