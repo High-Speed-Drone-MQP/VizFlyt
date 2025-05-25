@@ -14,3 +14,5 @@ source $VIZFLYT_PATH/setup_cfg.sh
 colcon build
 source install/setup.sh
 source install/local_setup.sh
+
+cd src
