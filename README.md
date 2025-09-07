@@ -84,7 +84,7 @@ Run the following commands to set up a dedicated Venv environment for VizFlyt:
 
 ```bash
 # Clone the repository
-git clone https://github.com/pearwpi/VizFlyt.git && cd VizFlyt
+git clone https://github.com/High-Speed-Drone-MQP/VizFlyt.git && cd VizFlyt
 
 # Create a python venv environment with Python 3.10
 python3 -m venv .vizflyt
