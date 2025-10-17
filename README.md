@@ -275,7 +275,7 @@ In this mode, the **Robot** and **Motion Capture** elements are replaced with si
 6️. **Launch RViz for Visualization**  
 
    ```bash
-   rviz2
+   rviz2 -d vizflyt/rviz/vizflyt.rviz
    ```
 
 ✅ **Expected Outcome:**  
